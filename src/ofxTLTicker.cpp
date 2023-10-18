@@ -170,7 +170,7 @@ float ofxTLTicker::getBPM(){
 //250 bpm = 250/60 beats per second
 //1 beat = 1/(250/60) seconds
 //1/2 beat = (1/(250/60))/2 seconds = 0.12 seconds
-void ofxTLTicker::getSnappingPoints(set<unsigned long long>& points){
+void ofxTLTicker::getSnappingPoints(std::set<unsigned long long>& points){
 
 	if(!drawBPMGrid){
 		updateBPMPoints();

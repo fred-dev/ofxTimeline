@@ -75,6 +75,14 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    switch (key) {
+        case 'f':
+            ofToggleFullscreen();
+            break;
+            
+        default:
+            break;
+    }
     
 }
 

@@ -153,7 +153,7 @@ class ofxTLPage {
 	bool footerIsDragging;
 	bool snappingEnabled;
 	
-	set<unsigned long long> snapPoints; //in millis
+	std::set<unsigned long long> snapPoints; //in millis
 	float snappingTolerance; //in pixels
 	virtual void zoomEnded(ofxTLZoomEventArgs& args);
 	

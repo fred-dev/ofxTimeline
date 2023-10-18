@@ -3,6 +3,6 @@ ofxPoco
 ofxRange
 ofxTextInputField
 ofxTimecode
-ofxTimeline
-ofxTween
 ofxXmlSettings
+ofxTween
+ofxTimeline

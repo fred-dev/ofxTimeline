@@ -250,7 +250,7 @@ void ofxTLKeyframes::load(){
 	}
 	else{
 		ofxXmlSettings savedkeyframes;
-		if(!savedkeyframes.loadFile(xmlFileName)){
+		if(!savedkeyframes.load(xmlFileName)){
 //			ofLog(OF_LOG_NOTICE, "ofxTLKeyframes --- couldn't load xml file " + xmlFileName);
 			return;
 		}
@@ -323,7 +323,7 @@ void ofxTLKeyframes::save(){
 		string xmlRep = getXMLStringForKeyframes(keyframes);
 		ofxXmlSettings savedkeyframes;
 		savedkeyframes.loadFromBuffer(xmlRep);
-		savedkeyframes.saveFile(xmlFileName);
+		savedkeyframes.save(xmlFileName);
 	}
 }
 
@@ -556,7 +556,7 @@ void ofxTLKeyframes::setKeyframeTime(ofxTLKeyframe* key, unsigned long long newT
 	key->time = newTime;
 }
 
-void ofxTLKeyframes::getSnappingPoints(set<unsigned long long>& points){
+void ofxTLKeyframes::getSnappingPoints(std::set<unsigned long long>& points){
 	for(int i = 0; i < keyframes.size(); i++){
 		if (isKeyframeIsInBounds(keyframes[i]) && !isKeyframeSelected(keyframes[i])) {
 			points.insert(keyframes[i]->time);

@@ -54,16 +54,16 @@ bool ofGetModifierPressed(ofxModifierKey mod) {
 	unsigned int t = 0;
 
 	if ((OF_MODIFIER_KEY_CTRL & mod) == OF_MODIFIER_KEY_CTRL)
-		t += NSControlKeyMask;
+		t += NSEventModifierFlagControl;
 	
 	if ((OF_MODIFIER_KEY_ALT & mod) == OF_MODIFIER_KEY_ALT)
-		t += NSAlternateKeyMask;
+		t += NSEventModifierFlagOption;
 	
 	if ((OF_MODIFIER_KEY_SHIFT & mod) == OF_MODIFIER_KEY_SHIFT)
-		t += NSShiftKeyMask;
+		t += NSEventModifierFlagShift;
 
 	if ((OF_MODIFIER_KEY_SPECIAL & mod) == OF_MODIFIER_KEY_SPECIAL)
-		t += NSCommandKeyMask;
+		t += NSEventModifierFlagCommand;
 
 	return [[NSApp currentEvent] modifierFlags] & t;
 }

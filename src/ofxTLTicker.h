@@ -60,7 +60,7 @@ class ofxTLTicker : public ofxTLTrack
 	virtual float getBPM();
 	virtual void setBPM(float bpm);
     
-	virtual void getSnappingPoints(set<unsigned long long>& points);
+	virtual void getSnappingPoints(std::set<unsigned long long>& points);
 	virtual bool getDrawBPMGrid();
 	virtual void setDrawBPMGrid(bool drawGrid);
 	virtual void setHoverTime(unsigned long long millis);

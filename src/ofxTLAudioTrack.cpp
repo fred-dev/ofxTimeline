@@ -108,7 +108,7 @@ void ofxTLAudioTrack::draw(){
 	if(!soundLoaded || player.getBuffer().size() == 0){
 		ofPushStyle();
 		ofSetColor(timeline->getColors().disabledColor);
-		ofRectangle(bounds);
+		ofDrawRectangle(bounds);
 		ofPopStyle();
 		return;
 	}

@@ -744,7 +744,7 @@ void ofxTLPage::loadTrackPositions(){
 	string xmlPageName = name;
 	ofStringReplace(xmlPageName," ", "_");
 	string positionFileName = ofToDataPath(timeline->getWorkingFolder() + timeline->getName() + "_" + xmlPageName + "_trackPositions.xml");
-	if(trackPositions.loadFile(positionFileName)){
+	if(trackPositions.load(positionFileName)){
 		
 		//cout << "loading element position " << name << "_trackPositions.xml" << endl;
 		
@@ -792,7 +792,7 @@ void ofxTLPage::saveTrackPositions(){
 	string xmlPageName = name;
 	ofStringReplace(xmlPageName," ", "_");
 	string trackPositionsFile = ofToDataPath(timeline->getWorkingFolder() + timeline->getName() + "_" +  xmlPageName + "_trackPositions.xml");
-	trackPositions.saveFile( trackPositionsFile );
+	trackPositions.save( trackPositionsFile );
 }
 
 #pragma mark getters/setters

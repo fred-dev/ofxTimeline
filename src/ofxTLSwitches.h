@@ -71,7 +71,7 @@ class ofxTLSwitches : public ofxTLKeyframes {
     
     virtual void keyPressed(ofKeyEventArgs& args);
     
-    virtual void getSnappingPoints(set<unsigned long long>& points);
+    virtual void getSnappingPoints(std::set<unsigned long long>& points);
     virtual void regionSelected(ofLongRange timeRange, ofRange valueRange);
 
     virtual void unselectAll();

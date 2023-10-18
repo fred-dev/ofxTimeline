@@ -162,7 +162,7 @@ void ofxTLInOut::mouseReleased(ofMouseEventArgs& args){
 void ofxTLInOut::load(){
     
 	ofxXmlSettings settings;
-	if(!settings.loadFile(xmlFileName)){
+	if(!settings.load(xmlFileName)){
 		ofLog(OF_LOG_VERBOSE, "ofxTLInOut -- couldn't load in/out settings file " + xmlFileName);
         timeline->setInOutRange(ofRange(0,1.0));
 		return;
@@ -181,6 +181,6 @@ void ofxTLInOut::save(){
 	savedSettings.addValue("in", timeline->getInOutRange().min);
 	savedSettings.addValue("out", timeline->getInOutRange().max);
 	savedSettings.popTag();//zoom
-	savedSettings.saveFile(xmlFileName);    
+	savedSettings.save(xmlFileName);    
 }
 

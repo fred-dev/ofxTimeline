@@ -38,8 +38,7 @@ void ofxTLColors::load() {
 
 void ofxTLColors::load(string colorFile) {
 	ofxXmlSettings settings;
-	if(!settings.loadFile( colorFile )){
-	//if(!settings.loadFile( ofToDataPath(colorFile, true) )){
+	if(!settings.load( colorFile )){
         ofLogWarning("ofxTLColors  -- Couldn't load color file " + colorFile );
     }
 		

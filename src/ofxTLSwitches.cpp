@@ -551,7 +551,7 @@ void ofxTLSwitches::regionSelected(ofLongRange timeRange, ofRange valueRange){
     }
 }
 
-void ofxTLSwitches::getSnappingPoints(set<unsigned long long>& points){
+void ofxTLSwitches::getSnappingPoints(std::set<unsigned long long>& points){
 	for(int i = 0; i < keyframes.size(); i++){
         ofxTLSwitch* switchKey = (ofxTLSwitch*)keyframes[i];
 		if (isKeyframeIsInBounds(switchKey) && !isKeyframeSelected(switchKey) &&

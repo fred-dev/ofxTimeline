@@ -38,33 +38,25 @@
 #import <Cocoa/Cocoa.h>
 #endif
 
-void RemoveCocoaMenusFromGlut(string appName){
-#ifdef TARGET_OSX
-	if (NSApp){
-		NSMenu      *menu;
-		NSMenuItem  *menuItem;
-		NSAutoreleasePool* p = [[NSAutoreleasePool alloc] init];
-//		NSLog(@"%@",[[NSApp mainMenu] description]);
-//
-		[NSApp setMainMenu:[[NSMenu alloc] init]];
-		NSMenu* existingMenu = [NSApp mainMenu];
-		
-		menu = [[NSMenu alloc] initWithTitle:@""];
-		[menu addItemWithTitle:@"About..." action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
-		if(appName == ""){
-			[menu addItemWithTitle:@"Quit" action:@selector(terminate:) keyEquivalent:@"q"];
-		}
-		else {
-			[menu addItemWithTitle:[NSString stringWithFormat:@"Quit %@", [NSString stringWithUTF8String:appName.c_str()]]  action:@selector(terminate:) keyEquivalent:@"q"];
-		}
-		
-		menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];
-		[menuItem setSubmenu:menu];
-		[[NSApp mainMenu] addItem:menuItem];
-		[NSApp performSelector:@selector(setAppleMenu:) withObject:menu];
-		
-		[p release];
-	}
-#endif
+void RemoveCocoaMenusFromGlut(std::string appName) {
+    #ifdef TARGET_OSX
+    if (NSApp) {
+        @autoreleasepool {
+            NSMenu *menu = [[NSMenu alloc] initWithTitle:@""];
+            
+            // Add "About..." menu item
+            [menu addItemWithTitle:@"About..." action:@selector(orderFrontStandardAboutPanel:) keyEquivalent:@""];
+            
+            // Construct the "Quit" menu item title
+            std::string quitTitle = (appName.empty()) ? "Quit" : "Quit " + appName;
+            [menu addItemWithTitle:[NSString stringWithUTF8String:quitTitle.c_str()] action:@selector(terminate:) keyEquivalent:@"q"];
+            
+            NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:@"Apple" action:nil keyEquivalent:@""];
+            [menuItem setSubmenu:menu];
+            [[NSApp mainMenu] addItem:menuItem];
+            [NSApp performSelector:@selector(setAppleMenu:) withObject:menu];
+        }
+    }
+    #endif
 }
 

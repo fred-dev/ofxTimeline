@@ -104,7 +104,7 @@ void ofxTLZoomer::load() {
 	notifyZoomStarted();
 	
 	ofxXmlSettings settings;
-	if(!settings.loadFile(xmlFileName)){
+	if(!settings.load(xmlFileName)){
 		ofLog(OF_LOG_VERBOSE, "ofxTLZoomer -- couldn't load zoom settings file " + xmlFileName);
         currentViewRange = ofRange(0., 1.0);
 		return;
@@ -126,7 +126,7 @@ void ofxTLZoomer::save() {
 	savedSettings.addValue("min", currentViewRange.min);
 	savedSettings.addValue("max", currentViewRange.max);
 	savedSettings.popTag();//zoom
-	savedSettings.saveFile(xmlFileName);
+	savedSettings.save(xmlFileName);
 }
 
 void ofxTLZoomer::mouseMoved(ofMouseEventArgs& args) {

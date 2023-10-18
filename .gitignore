@@ -1,31 +1,26 @@
-#standard gitignore for Flightphase addons
+# Standard gitignore for Flightphase addons
 
-#xcode files
+# Xcode files
 *.mode*
 *.perspectivev3
 *.pbxuser
 *.xcworkspace
 xcuserdata/
 
-#builds
+# Builds
 build/
 obj/
 *.o
 *.app
-*/x64/
 
-#codeblocks files
+# Codeblocks files
 apps/*/*/*.layout
 apps/*/*/*.depend
 apps/*/*/bin/clickToLaunch*
 apps/*/*/bin/libs
 apps/*/*/obj
-example-*/*build_log.html
-example-*/example-*.layout
-example-*/example-*.depend
 
-#VCPP files
-
+# Visual Studio files
 *.dll
 *.lib
 *.exe
@@ -35,75 +30,113 @@ example-*/example-*.depend
 *.suo
 *.ilk
 *.pdb
-*.suo
 
+# Intellisense
 ipch/
 
-#mac files
+# Mac files
 .DS_Store
 
-#linux files
-*.user
+# Linux files
 *modex.so
 *modexp64.so
 */*/*.tags
 */bin/timelineExample
-example-allTracks/bin/example-allTracks_debug
-*_debug
 
+# Example-specific
 example-videoRenderer/bin/data/renders/
 oldExamples/
-!libs/openal/libs/win_cb/*.lib
-!libs/openal/libs/win_cb/**/*.lib
-!libs/sndfile/lib/win_cb/*
-=======
-#standard gitignore for Flightphase addons
 
-#xcode files
-*.mode*
-*.perspectivev3
+# OpenAL and Soundfile libs on Windows
+!libs/openal/libs/vs/*.lib
+!libs/openal/libs/vs/**/*.lib
+!libs/sndfile/lib/vs/*
+!libs/sndfile/export/vs/**
+
+# IDE-specific ignore patterns (e.g., user-specific files)
+
+# XCode
+*/Makefile
+*/Project.xcconfig
+*/config.make
+*/openFrameworks-Info.plist
+*.xcscheme
+*.pbxproj
+*.xcodeproj/
 *.pbxuser
+*.perspective
+*.perspectivev3
+*.mode1v3
+*.mode2v3
+# XCode 4
+xcuserdata
 *.xcworkspace
-xcuserdata/
+*.xcconfig
+*.pbxproj
+*.entitlements
+*.xcconfig
+*.plist
+*.plist
+*.xcconfig
 
-#builds
-build/
-obj/
-*.o
-*.app
+# Code::Blocks
+*.depend
+*.layout
+*.cbTemp
 
-#codeblocks files
-apps/*/*/*.layout
-apps/*/*/*.depend
-apps/*/*/bin/clickToLaunch*
-apps/*/*/bin/libs
-apps/*/*/obj
-
-#VCPP files
-
-*.dll
-*.lib
-*.exe
+# Visual Studio
 *.sdf
 *.opensdf
-*.exp
 *.suo
-*.ilk
-*.pdb
-*.suo
-
 ipch/
 
-#mac files
+# Eclipse
+.metadata
+local.properties
+.externalToolBuilders
+
+# OS-specific ignore patterns
+
+# Linux
+*~
+
+# KDE
+.directory
+
+# OSX
 .DS_Store
+*.swp
+*~.nib
+# Thumbnails
+._*
 
-#linux files
-*modex.so
-*modexp64.so
-*/*/*.tags
-*/bin/timelineExample
+# Windows
+# Windows image file caches
+Thumbs.db
+# Folder config file
+Desktop.ini
 
-example-videoRenderer/bin/data/renders/
-oldExamples/
-ofxTimelineLib.a
-*.opendb
+# Android
+.csettings
+
+# Packages
+# It's better to unpack these files and commit the raw source
+# Git has its own built-in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+*.plist
+*.xcscheme
+*.xcconfig
+*.xcodeproj/
