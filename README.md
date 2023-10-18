@@ -1,7 +1,7 @@
 ## Updates to this Fork ##
-This fork has been updated to OF 0.11.2
+This fork has been updated to OF 0.12.0
 
-Tested only on Linux and OSX/MacOS for the time being. QtCreator projects have been added to most of the examples.
+Tested only Linux, OSX/MacOS and Windows.
 
 The Audioplayer track has been reinstated. The *ofOpenALSoundPlayer_Timeline* class is an updated copy of the regular OF OpenAL sound player, except with most of its private members made protected in order to subclass it in *ofOpenALSoundPlayer_TimelineAdditions* which now only contains the code necessary to this addon.
 
