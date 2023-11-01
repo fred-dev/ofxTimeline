@@ -71,7 +71,7 @@
 #include "ofxTLLFO.h"
 #include "ofxTLVideoTrack.h"
 #include "ofxTLAudioTrack.h"
-
+#include "ofxTLAudioFMOD3DTrack.h"
 
 typedef struct {
     ofxTLTrack* track;
@@ -397,9 +397,14 @@ class ofxTimeline : ofThread {
     
 	#ifdef TIMELINE_AUDIO_INCLUDED
     //Audio tracks only work with PCM Wav or Aiff file
-    ofxTLAudioTrack* addAudioTrack(string trackName);
-    ofxTLAudioTrack* addAudioTrackWithPath(string audioPath);
-    ofxTLAudioTrack* addAudioTrack(string name, string audioPath);
+    ofxTLAudioFMOD3DTrack* addAudioFMOD3DTrack(string trackName, FMOD_PAN_TYPE panType = FMOD_PAN_TYPE::FMOD_PAN_STEREO);
+    ofxTLAudioFMOD3DTrack* addAudioFMOD3DTrackWithPath(string audioPath, FMOD_PAN_TYPE panType = FMOD_PAN_TYPE::FMOD_PAN_STEREO);
+    ofxTLAudioFMOD3DTrack* addAudioFMOD3DTrack(string name, string audioPath, FMOD_PAN_TYPE panType = FMOD_PAN_TYPE::FMOD_PAN_STEREO);
+    ofxTLAudioFMOD3DTrack* getAudioFMOD3DTrack(string audioTrackName);
+    
+    ofxTLAudioTrack* addAudioTrack(string trackName, OPENAL_PAN_TYPE panType = OPENAL_PAN_TYPE::OPENAL_PAN_STEREO);
+    ofxTLAudioTrack* addAudioTrackWithPath(string audioPath, OPENAL_PAN_TYPE panType = OPENAL_PAN_TYPE::OPENAL_PAN_STEREO);
+    ofxTLAudioTrack* addAudioTrack(string name, string audioPath, OPENAL_PAN_TYPE panType = OPENAL_PAN_TYPE::OPENAL_PAN_STEREO);
     ofxTLAudioTrack* getAudioTrack(string audioTrackName);
 	#endif
 

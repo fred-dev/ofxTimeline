@@ -2060,15 +2060,41 @@ ofPtr<ofVideoPlayer> ofxTimeline::getVideoPlayer(string videoTrackName){
 #endif
 
 #ifdef TIMELINE_AUDIO_INCLUDED
-ofxTLAudioTrack* ofxTimeline::addAudioTrack(string audioPath){
-    return addAudioTrack("audio", audioPath);
+ofxTLAudioFMOD3DTrack* ofxTimeline::addAudioFMOD3DTrack(string audioPath, FMOD_PAN_TYPE panType){
+    return addAudioFMOD3DTrack("audio", audioPath, panType );
 }
 
-ofxTLAudioTrack* ofxTimeline::addAudioTrackWithPath(string audioPath){
-    return addAudioTrack("audio", audioPath);
+ofxTLAudioFMOD3DTrack* ofxTimeline::addAudioFMOD3DTrackWithPath(string audioPath, FMOD_PAN_TYPE panType){
+    return addAudioFMOD3DTrack("audio", audioPath, panType);
 }
 
-ofxTLAudioTrack* ofxTimeline::addAudioTrack(string trackName, string audioPath){
+ofxTLAudioFMOD3DTrack* ofxTimeline::addAudioFMOD3DTrack(string trackName, string audioPath, FMOD_PAN_TYPE panType){
+    ofxTLAudioFMOD3DTrack* audioTrack = new ofxTLAudioFMOD3DTrack();
+    audioTrack->setCreatedByTimeline(true);
+    addTrack(confirmedUniqueName(trackName), audioTrack);
+    if(audioPath != ""){
+        if(!audioTrack->loadSoundfile(audioPath)){
+            ofLogError("ofxTimeline::addAudioTrack -- audio file " + audioPath + " failed to load. Use only WAV and AIFF files");
+        }
+        else audioTrack->setPanType(panType);
+    }
+    return audioTrack;
+}
+
+ofxTLAudioFMOD3DTrack* ofxTimeline::getAudioFMOD3DTrack(string audioTrackName){
+    return (ofxTLAudioFMOD3DTrack*)getTrack(audioTrackName);
+}
+
+///////
+ofxTLAudioTrack* ofxTimeline::addAudioTrack(string audioPath, OPENAL_PAN_TYPE panType){
+    return addAudioTrack("audio", audioPath, panType );
+}
+
+ofxTLAudioTrack* ofxTimeline::addAudioTrackWithPath(string audioPath, OPENAL_PAN_TYPE panType){
+    return addAudioTrack("audio", audioPath, panType);
+}
+
+ofxTLAudioTrack* ofxTimeline::addAudioTrack(string trackName, string audioPath, OPENAL_PAN_TYPE panType){
     ofxTLAudioTrack* audioTrack = new ofxTLAudioTrack();
     audioTrack->setCreatedByTimeline(true);
     addTrack(confirmedUniqueName(trackName), audioTrack);
@@ -2076,6 +2102,7 @@ ofxTLAudioTrack* ofxTimeline::addAudioTrack(string trackName, string audioPath){
         if(!audioTrack->loadSoundfile(audioPath)){
             ofLogError("ofxTimeline::addAudioTrack -- audio file " + audioPath + " failed to load. Use only WAV and AIFF files");
         }
+        else audioTrack->setPanType(panType);
     }
     return audioTrack;
 }

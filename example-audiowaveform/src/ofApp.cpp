@@ -42,7 +42,8 @@ void ofApp::setup(){
     timeline.setBPM(120.f);
     timeline.enableSnapToBPM(true);
     timeline.setShowBPMGrid(true);
-    timeline.addAudioTrack("Audio","4chan.wav");
+    timeline.addAudioTrack("Audio","mono_panner.wav", OPENAL_PAN_TYPE::OPENAL_PAN_2D);
+    //timeline.getAudioTrack("Audio")->setPanType(OPENAL_PAN_2D);
     
     //this means that calls to play/stop etc will be  routed to the waveform and that timing will be 100% accurate
     timeline.setTimecontrolTrack("Audio");
@@ -52,12 +53,33 @@ void ofApp::setup(){
     //timeline.addAudioTrackWithPath("audiocheck.net_sweep20-20klin.wav");
 
     timeline.setDurationInSeconds(timeline.getAudioTrack("Audio")->getDuration());
+    listener.setScale(1);
+    listener.setPosition(0, 0, 0);
+    listener.setOrientation(glm::vec3(0,0,0));
+    soundSource.setScale(1);
+    soundSource.setPosition(0, 0, 0);
+    soundSource.setOrientation(glm::vec3(0,0,0));
 
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+    soundSource.setPosition(glm::vec3(ofMap(ofGetMouseX(), 0, ofGetWidth(), -2, 2, true), ofMap(ofGetMouseY(), 0, ofGetHeight(), -2, 2, true),0.1));
+    soundSource.lookAt(listener);
+    
+    timeline.getAudioTrack("Audio")->setposition3D(soundSource.getPosition());
+    
+    // Get the position of the soundSource
+    glm::vec3 soundSourcePosition = soundSource.getPosition();
+
+    // Get the position of the listener
+    glm::vec3 listenerPosition = listener.getPosition();
+
+    // Calculate the direction vector from soundSource to listener
+    glm::vec3 directionVector = glm::normalize(listenerPosition - soundSourcePosition);
+    timeline.getAudioTrack("Audio")->setDirection3D(directionVector);
+    
+
 }
 
 //--------------------------------------------------------------
@@ -79,6 +101,13 @@ void ofApp::keyPressed(int key){
         case 'f':
             ofToggleFullscreen();
             break;
+        case 'P':
+            cout << "pan type: " << timeline.getAudioTrack("Audio")->getPanType() << endl;
+            cout << "pan 2d: " << timeline.getAudioTrack("Audio")->getPosition2D() << endl;
+            cout << "pan 3d: " << timeline.getAudioTrack("Audio")->getPosition3D() << endl;
+            cout << "velocity 3d: " << timeline.getAudioTrack("Audio")->getVelocity3D() << endl;
+            cout << "Direction 3d: " << timeline.getAudioTrack("Audio")->getDirection3D() << endl;
+
             
         default:
             break;

@@ -88,6 +88,18 @@ class ofxTLAudioTrack : public ofxTLTrack
     virtual float getSpeed();
 	virtual void setVolume(float volume);
 	virtual void setPan(float pan);
+    virtual void setPanType(OPENAL_PAN_TYPE _panType);
+    virtual OPENAL_PAN_TYPE getPanType();
+    virtual void setPosition2D(glm::vec3 position2D);
+    virtual void setPosition3D(glm::vec3 position3D);
+    virtual void setVelocity3D(glm::vec3 veclocity3D);
+    virtual void setDirection3D(glm::vec3 direction3D);
+
+    virtual glm::vec3 getPosition2D();
+    virtual glm::vec3 getPosition3D();
+    virtual glm::vec3 getVelocity3D();
+    virtual glm::vec3 getDirection3D();
+    
     
 	virtual string getTrackType();
 

@@ -478,4 +478,40 @@ string ofxTLAudioTrack::getTrackType(){
     return "Audio";    
 }
 
+void ofxTLAudioTrack::setPanType(OPENAL_PAN_TYPE _panType){
+    player.setPanType(_panType);
+}
+
+OPENAL_PAN_TYPE ofxTLAudioTrack::getPanType(){
+    return player.getPanType();
+}
+
+void ofxTLAudioTrack::setPosition2D(glm::vec3 position2D){
+    player.setPosition2D(position2D);
+}
+
+void ofxTLAudioTrack::setPosition3D(glm::vec3 position3D){
+    player.setPosition3D(position3D);
+}
+void ofxTLAudioTrack::setVelocity3D(glm::vec3 veclocity3D){
+    player.setVelocity3D(veclocity3D);
+}
+void ofxTLAudioTrack::setDirection3D(glm::vec3 direction3D){
+    player.setDirection3D(direction3D);
+}
+
+glm::vec3 ofxTLAudioTrack::getPosition2D(){
+    return player.getPosition2D();
+}
+glm::vec3 ofxTLAudioTrack::getPosition3D(){
+    return player.getPosition3D();
+}
+glm::vec3 ofxTLAudioTrack::getVelocity3D(){
+    return player.getVelocity3D();
+
+}
+glm::vec3 ofxTLAudioTrack::getDirection3D(){
+    return player.getDirection3D();
+}
+
 #endif  // TIMELINE_AUDIO_INCLUDED

@@ -182,11 +182,18 @@ void ofOpenALSoundPlayer_Timeline::initialize(){
             return;
         }
 		alcMakeContextCurrent (alContext);
+        alDistanceModel(AL_EXPONENT_DISTANCE);
         ofLogVerbose("ofOpenALSoundPlayer") << "Vendor: " << alGetString(AL_VENDOR);
         ofLogVerbose("ofOpenALSoundPlayer") << "Renderer: " << alGetString(AL_RENDERER);
         ofLogVerbose("ofOpenALSoundPlayer") << "Version: " << alGetString(AL_VERSION);
 
 		alListener3f(AL_POSITION, 0,0,0);
+        alListener3f(AL_VELOCITY, 0,0,0);
+        ALfloat listenerOri[]={0.0, 0.0, -1.0, 0.0, 1.0, 0.0};
+        alListenerfv(AL_ORIENTATION, listenerOri);
+
+
+        
 #ifdef OF_USING_MPG123
 		mpg123_init();
 #endif
@@ -535,7 +542,9 @@ bool ofOpenALSoundPlayer_Timeline::load(const std::filesystem::path& _fileName, 
 
 		alSourcef (sources[0], AL_PITCH,    1.0f);
 		alSourcef (sources[0], AL_GAIN,     1.0f);
-	    alSourcef (sources[0], AL_ROLLOFF_FACTOR,  0.0);
+        alSourcef (sources[0], AL_REFERENCE_DISTANCE,     0.3f);
+	    alSourcef (sources[0], AL_ROLLOFF_FACTOR,  6.0);
+        alSourcef (sources[0], AL_MAX_DISTANCE,  1.0);
 	    alSourcei (sources[0], AL_SOURCE_RELATIVE, AL_TRUE);
 	}else{
 		vector<vector<short> > multibuffer;
@@ -818,9 +827,37 @@ void ofOpenALSoundPlayer_Timeline::setPan(float p){
 	p = glm::clamp(p, -1.f, 1.f);
 	pan = p;
 	if(channels==1){
-		float pos[3] = {p,0,0};
-		alSourcefv(sources[sources.size()-1],AL_POSITION,pos);
-	}else{
+        float pos[3] = {p,0,0};
+
+        switch (panType) {
+            case 0:
+                alSourcefv(sources[sources.size()-1],AL_POSITION,pos);
+                break;
+            case 1:
+                pos[0] = position2D.x;
+                pos[1] = position2D.y;
+                pos[2] = 0;
+                alSourcefv(sources[sources.size()-1],AL_POSITION,pos);
+                break;
+            case 2:
+                pos[0] = position3D.x;
+                pos[1] = position3D.y;
+                pos[2] = position3D.z;
+                float vel[3] = {0,0,0};
+                vel[0] = velocity3D.x;
+                vel[1] = velocity3D.y;
+                vel[2] = velocity3D.z;
+                float dir[3] = {0,0,0};
+                dir[0] = direction3D.x;
+                dir[1] = direction3D.y;
+                dir[2] = direction3D.z;
+                alSourcefv(sources[sources.size()-1],AL_POSITION,pos);
+                alSourcefv(sources[sources.size()-1],AL_VELOCITY,vel);
+                alSourcefv(sources[sources.size()-1],AL_DIRECTION,dir);
+                break;
+
+        }
+			}else{
         // calculates left/right volumes from pan-value (constant panning law)
         // see: Curtis Roads: Computer Music Tutorial p 460
 		// thanks to jasch
@@ -1060,3 +1097,39 @@ void ofOpenALSoundPlayer_Timeline::runWindow(vector<float> & signal){
 		signal[i] *= window[i];
 }
 
+void ofOpenALSoundPlayer_Timeline::setPanType(OPENAL_PAN_TYPE _panType){
+    panType = _panType;
+    setPan(pan);
+}
+OPENAL_PAN_TYPE ofOpenALSoundPlayer_Timeline::getPanType() const{
+    return panType;
+}
+
+glm::vec3 ofOpenALSoundPlayer_Timeline::getPosition2D() const{
+    return position2D;
+}
+glm::vec3 ofOpenALSoundPlayer_Timeline::getPosition3D() const{
+    return position3D;
+}
+glm::vec3 ofOpenALSoundPlayer_Timeline::getVelocity3D() const{
+    return velocity3D;
+}
+glm::vec3 ofOpenALSoundPlayer_Timeline::getDirection3D() const{
+    return direction3D;
+}
+void ofOpenALSoundPlayer_Timeline::setPosition2D(glm::vec3 _position2D){
+    position2D = _position2D;
+    setPan(pan);
+}
+void ofOpenALSoundPlayer_Timeline::setPosition3D(glm::vec3 _position3D){
+    position3D = _position3D;
+    setPan(pan);
+}
+void ofOpenALSoundPlayer_Timeline::setVelocity3D(glm::vec3 _velocity3D){
+    velocity3D = _velocity3D;
+    setPan(pan);
+}
+void ofOpenALSoundPlayer_Timeline::setDirection3D(glm::vec3 _direction3D){
+    direction3D = _direction3D;
+    setPan(pan);
+}

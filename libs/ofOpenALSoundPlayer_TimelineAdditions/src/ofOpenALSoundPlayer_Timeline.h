@@ -3,6 +3,7 @@
 #include "ofConstants.h"
 #include "ofSoundBaseTypes.h"
 #include "ofThread.h"
+#include "ofVectorMath.h"
 
 typedef unsigned int ALuint;
 
@@ -41,6 +42,13 @@ void ofFmodSoundSetVolume(float vol);
 void ofOpenALSoundUpdate();						// calls FMOD update.
 float * ofFmodSoundGetSpectrum(int nBands);		// max 512...
 
+//create an enum for pan types
+enum OPENAL_PAN_TYPE{
+    OPENAL_PAN_STEREO = 0,
+    OPENAL_PAN_2D = 1,
+    OPENAL_PAN_3D = 2
+};
+
 
 // --------------------- player functions:
 class ofOpenALSoundPlayer_Timeline : public ofBaseSoundPlayer, public ofThread {
@@ -50,7 +58,7 @@ class ofOpenALSoundPlayer_Timeline : public ofBaseSoundPlayer, public ofThread {
         ofOpenALSoundPlayer_Timeline();
         virtual ~ofOpenALSoundPlayer_Timeline();
 
-        bool load(const std::filesystem::path& fileName, bool stream = false);
+        bool load(const std::filesystem::path& fileName, bool stream = false );
 		void unload();
 		void play();
 		void stop();
@@ -63,8 +71,12 @@ class ofOpenALSoundPlayer_Timeline : public ofBaseSoundPlayer, public ofThread {
 		void setMultiPlay(bool bMp);
 		void setPosition(float pct); // 0 = start, 1 = end;
 		void setPositionMS(int ms);
-
-
+        void setPanType(OPENAL_PAN_TYPE _panType);
+        void setPosition2D(glm::vec3 _position2D);
+        void setPosition3D(glm::vec3 _position3D);
+        void setVelocity3D(glm::vec3 _velocity3D);
+        void setDirection3D(glm::vec3 _direction3D);
+    
 		float getPosition() const;
 		int getPositionMS() const;
 		bool isPlaying() const;
@@ -73,6 +85,12 @@ class ofOpenALSoundPlayer_Timeline : public ofBaseSoundPlayer, public ofThread {
         float getVolume() const;
 		bool isPaused() const;
 		bool isLoaded() const;
+        OPENAL_PAN_TYPE getPanType() const;
+        glm::vec3 getPosition2D() const;
+        glm::vec3 getPosition3D() const;
+        glm::vec3 getVelocity3D() const;
+        glm::vec3 getDirection3D() const;
+    
 
 		static void initialize();
 		static void close();
@@ -109,10 +127,16 @@ class ofOpenALSoundPlayer_Timeline : public ofBaseSoundPlayer, public ofThread {
 		bool bLoadedOk;
 		bool bPaused;
 		float pan; // 0 - 1
+        glm::vec3 position2D;
+        glm::vec3 position3D;
+        glm::vec3 velocity3D;
+        glm::vec3 direction3D;
 		float volume; // 0 - 1
 		float internalFreq; // 44100 ?
 		float speed; // -n to n, 1 = normal, -1 backwards
 		unsigned int length; // in samples;
+        OPENAL_PAN_TYPE panType;
+
 
 		static std::vector<float> window;
 		static float windowSum;

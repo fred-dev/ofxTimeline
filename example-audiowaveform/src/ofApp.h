@@ -53,4 +53,5 @@ class ofApp : public ofBaseApp{
 	void gotMessage(ofMessage msg);
 	
 	ofxTimeline timeline;
+    ofNode listener, soundSource;
 };
