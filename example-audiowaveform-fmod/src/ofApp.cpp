@@ -42,7 +42,7 @@ void ofApp::setup(){
     timeline.setBPM(120.f);
     timeline.enableSnapToBPM(true);
     timeline.setShowBPMGrid(true);
-    timeline.addAudioTrack("Audio","mono_panner.wav", OPENAL_PAN_TYPE::OPENAL_PAN_2D);
+    timeline.addAudioFMOD3DTrack("Audio","mono_panner.wav", FMOD_PAN_TYPE::FMOD_PAN_2D);
     //timeline.getAudioTrack("Audio")->setPanType(OPENAL_PAN_2D);
     
     //this means that calls to play/stop etc will be  routed to the waveform and that timing will be 100% accurate

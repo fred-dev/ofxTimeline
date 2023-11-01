@@ -1,8 +1,9 @@
+ofxFmod3DSoundPlayer
 ofxMSATimer
 ofxPoco
 ofxRange
 ofxTextInputField
 ofxTimecode
-ofxTimeline
-ofxTween
 ofxXmlSettings
+ofxTween
+ofxTimeline
