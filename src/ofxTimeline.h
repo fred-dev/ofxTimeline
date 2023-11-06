@@ -72,6 +72,7 @@
 #include "ofxTLVideoTrack.h"
 #include "ofxTLAudioTrack.h"
 #include "ofxTLAudioFMOD3DTrack.h"
+#include "ofxTL2DVecTrack.h"
 
 typedef struct {
     ofxTLTrack* track;
@@ -375,8 +376,23 @@ class ofxTimeline : ofThread {
 	ofColor getColorAtSecond(string name, float second);
 	ofColor getColorAtMillis(string name, unsigned long long millis);
     
-	void setDefaultColorPalettePath(string path);
-	string getDefaultColorPalettePath();
+    void setDefaultColorPalettePath(string path);
+    string getDefaultColorPalettePath();
+    
+    ofxTL2DVecTrack* addVec2f(string name); //adds with the default palette
+    ofxTL2DVecTrack* addVec2f(string name, string xmlFileName); //adds with the default palette
+    ofxTL2DVecTrack* addVec2fWithPalette(string name, ofImage& palette);
+    ofxTL2DVecTrack* addVec2fWithPalette(string name, string palettePath);
+    ofxTL2DVecTrack* addVec2fWithPalette(string name, string xmlFileName, ofImage& palette);
+    ofxTL2DVecTrack* addVec2fWithPalette(string name, string xmlFileName, string palettePath);
+    
+    ofVec2f getVec2f(string name);
+    ofVec2f getVec2fAtPercent(string name, float percent);
+    ofVec2f getVec2fAtSecond(string name, float second);
+    ofVec2f getVec2fAtMillis(string name, unsigned long long millis);
+    
+	void setDefaultVec2fPalettePath(string path);
+	string getDefaultvec2fPalettePath();
     
     //TODO: remove image sequence from the core? ... or fix it up.
 	//*IMAGE SEQUENCE DOES NOT WORK*
@@ -563,7 +579,8 @@ class ofxTimeline : ofThread {
     
 	
 	string defaultPalettePath;
-	
+    string defaultVec2fPalettePath;
+
     //TODO convert to ofLongRange
 	ofRange inoutRange;
     void triggerInOutEvent();

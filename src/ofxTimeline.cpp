@@ -90,6 +90,7 @@ ofxTimeline::ofxTimeline()
 	minimalHeaders(false),
    	//copy from ofxTimeline/assets into bin/data/
 	defaultPalettePath("GUI/defaultColorPalette.png"),
+    defaultVec2fPalettePath("GUI/default_2d_panner_5.1.png"),
 	//TODO: should be able to use bitmap font if need be
 	fontPath("GUI/NewMedia Fett.ttf"),
 	fontSize(9),
@@ -156,6 +157,7 @@ void ofxTimeline::setup(const string& dataPathRoot){
 
 	//Update the data paths
     defaultPalettePath = ofFilePath::addTrailingSlash(dataPathRoot) + "defaultColorPalette.png";
+    defaultVec2fPalettePath = ofFilePath::addTrailingSlash(dataPathRoot) + "default_2d_panner_5.1.png";
     fontPath = ofFilePath::addTrailingSlash(dataPathRoot) + "NewMedia Fett.ttf";
     colors.load(ofFilePath::addTrailingSlash(dataPathRoot) + "defaultColors.xml");
 
@@ -1987,6 +1989,84 @@ void ofxTimeline::setDefaultColorPalettePath(string path){
 string ofxTimeline::getDefaultColorPalettePath(){
 	return defaultPalettePath;
 }
+//////////////
+
+
+ofxTL2DVecTrack* ofxTimeline::addVec2f(string trackName){
+    string uniqueName = confirmedUniqueName(trackName);
+    return addVec2fWithPalette(uniqueName, nameToXMLName(uniqueName), defaultVec2fPalettePath);
+}
+
+ofxTL2DVecTrack* ofxTimeline::addVec2f(string name, string xmlFileName){
+    return addVec2fWithPalette(confirmedUniqueName(name), xmlFileName, defaultVec2fPalettePath);
+}
+
+ofxTL2DVecTrack* ofxTimeline::addVec2fWithPalette(string trackName, ofImage& palette){
+    string uniqueName = confirmedUniqueName(trackName);
+    return addVec2fWithPalette(uniqueName, nameToXMLName(uniqueName), palette);
+}
+
+ofxTL2DVecTrack* ofxTimeline::addVec2fWithPalette(string trackName, string palettePath){
+    string uniqueName = confirmedUniqueName(trackName);
+    return addVec2fWithPalette(uniqueName, nameToXMLName(uniqueName), palettePath);
+}
+
+ofxTL2DVecTrack* ofxTimeline::addVec2fWithPalette(string trackName, string xmlFileName, ofImage& palette){
+    ofxTL2DVecTrack* newVec2fs = new ofxTL2DVecTrack();
+    newVec2fs->setCreatedByTimeline(true);
+    newVec2fs->setXMLFileName(xmlFileName);
+    newVec2fs->loadColorPalette(palette);
+    addTrack(confirmedUniqueName(trackName), newVec2fs);
+    return newVec2fs;
+}
+
+ofxTL2DVecTrack* ofxTimeline::addVec2fWithPalette(string trackName, string xmlFileName, string palettePath){
+    ofxTL2DVecTrack* newVec2fs = new ofxTL2DVecTrack();
+    newVec2fs->setCreatedByTimeline(true);
+    newVec2fs->setXMLFileName(xmlFileName);
+    newVec2fs->loadColorPalette(palettePath);
+    addTrack(confirmedUniqueName(trackName), newVec2fs);
+    return newVec2fs;
+}
+
+ofVec2f ofxTimeline::getVec2f(string trackName){
+    if(!hasTrack(trackName)){
+        ofLogError("ofxTimeline -- Couldn't find color track " + trackName);
+        return ofVec2f(0,0);
+    }
+    ofxTL2DVecTrack* vec2fs = (ofxTL2DVecTrack*)trackNameToPage[trackName]->getTrack(trackName);
+    return vec2fs->getVec2f();
+}
+
+ofVec2f ofxTimeline::getVec2fAtPercent(string trackName, float percent){
+    return getVec2fAtMillis(trackName, percent*getDurationInMilliseconds());
+}
+
+ofVec2f ofxTimeline::getVec2fAtSecond(string trackName, float second){
+    return getVec2fAtMillis(trackName, second*1000);
+}
+
+ofVec2f ofxTimeline::getVec2fAtMillis(string trackName, unsigned long long millis){
+    if(!hasTrack(trackName)){
+       ofLogError("ofxTimeline -- Couldn't find color track " + trackName);
+        return ofVec2f(0,0);
+    }
+
+    ofxTL2DVecTrack* vec2Fs = (ofxTL2DVecTrack*)trackNameToPage[trackName]->getTrack(trackName);
+    return vec2Fs->getVec2fAtMillis(millis);
+}
+
+void ofxTimeline::setDefaultVec2fPalettePath(string path){
+    defaultVec2fPalettePath = path;
+}
+
+string ofxTimeline::getDefaultvec2fPalettePath(){
+    return defaultVec2fPalettePath;
+}
+
+
+
+///////////////
 
 //*** IMAGE SEQUENCE DOESN'T WORK **///
 ofxTLImageSequence* ofxTimeline::addImageSequence(string trackName){
