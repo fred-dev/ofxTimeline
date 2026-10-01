@@ -1,3 +1,5 @@
+> **About this fork:** Fork of [pierrep/ofxTimeline](https://github.com/pierrep/ofxTimeline) with a fix for recent OF changes (2023), used in [synth_orn_presenter](https://github.com/fred-dev/synth_orn_presenter). The notes below are from pierrep's fork.
+
 ## Updates to this Fork ##
 This fork has been updated to OF 0.11.2
 

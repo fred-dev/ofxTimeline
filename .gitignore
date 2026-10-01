@@ -140,3 +140,23 @@ Desktop.ini
 *.xcscheme
 *.xcconfig
 *.xcodeproj/
+
+# openFrameworks: commit src/, bin/data/ and addons.make only.
+# Regenerate IDE projects with projectGenerator.
+*.xcworkspace/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.cbp
+.vscode/
+*/of.entitlements
+*/icon.rc
+
+# Build output (bin/data is kept)
+*/bin/*
+!*/bin/data/
+*.app/
+
+# OS / editor
+.idea/
