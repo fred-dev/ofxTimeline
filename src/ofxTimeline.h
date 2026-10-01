@@ -34,6 +34,9 @@
 
 #include "ofMain.h"
 
+//let use the std namespace for string and vector
+using namespace std;
+
 //For lack of a type abstraction, this let's you #define a font renderer before including ofxTimeline
 //(like ofxFTGL or ofxFont)
 //to use ofxFTGL use somethinglike this:
@@ -523,7 +526,7 @@ class ofxTimeline : ofThread {
     //this is populated on mouse-down or key-down with all items that could potentially be modified
 	vector<UndoItem> stateBuffers; 
     //then after the events are propagated all the modified tracks are collected here 
-    set<ofxTLTrack*> modifiedTracks;
+    std::set<ofxTLTrack*> modifiedTracks;
     //finally, the state buffers for the tracks that were modified are pushed onto the stack say that state may be returned
     deque< vector<UndoItem> > undoStack;
     //the undo pointer points into the array and lets the user move through undo/redo actions
