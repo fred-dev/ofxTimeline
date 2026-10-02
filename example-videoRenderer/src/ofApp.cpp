@@ -148,7 +148,7 @@ void ofApp::loadVideo(string videoPath){
         videoPath = "";
     }
     settings.setValue("videoPath", videoPath);
-    settings.saveFile();        
+    settings.saveFile("settings.xml"); // ofxXmlSettings::saveFile() has no definition in OF 0.12        
 }
 
 //--------------------------------------------------------------

@@ -1,8 +1,1 @@
-ofxMSATimer
-ofxPoco
-ofxRange
-ofxTextInputField
-ofxTimecode
-ofxXmlSettings
-ofxTween
 ofxTimeline

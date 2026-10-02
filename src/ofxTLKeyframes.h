@@ -75,6 +75,8 @@ class ofxTLKeyframes : public ofxTLTrack
 	virtual void addKeyframe(float value);
 	virtual void addKeyframeAtMillis(unsigned long long millis);
 	virtual void addKeyframeAtMillis(float value, unsigned long long millis);
+	//removes every keyframe with startMillis <= time <= endMillis, e.g. before recording over a section
+	virtual void deleteKeyframesInRange(unsigned long long startMillis, unsigned long long endMillis);
 	virtual void simplifySelectedKeyframes( float tolerance = 0.01f);
     ofxTLKeyframe* getKeyframeAtMillis( unsigned long long millis);
 

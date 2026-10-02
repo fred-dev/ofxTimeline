@@ -819,6 +819,24 @@ void ofxTLKeyframes::deleteSelectedKeyframes(){
     timeline->flagTrackModified(this);
 }
 
+void ofxTLKeyframes::deleteKeyframesInRange(unsigned long long startMillis, unsigned long long endMillis){
+	bool removed = false;
+	for(int i = keyframes.size() - 1; i >= 0; i--){
+		if(keyframes[i]->time >= startMillis && keyframes[i]->time <= endMillis){
+			deselectKeyframe(keyframes[i]);
+			willDeleteKeyframe(keyframes[i]);
+			delete keyframes[i];
+			keyframes.erase(keyframes.begin()+i);
+			removed = true;
+		}
+	}
+	if(removed){
+		lastKeyframeIndex = 1;
+		timeline->flagTrackModified(this);
+		shouldRecomputePreviews = true;
+	}
+}
+
 void ofxTLKeyframes::deleteKeyframe(ofxTLKeyframe* keyframe){
 
 	if(keyframe == NULL) return;

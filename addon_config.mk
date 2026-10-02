@@ -14,7 +14,8 @@ common:
 	ADDON_DEPENDENCIES += ofxMSATimer
 	ADDON_DEPENDENCIES += ofxTimecode
 	ADDON_DEPENDENCIES += ofxTextInputField
-	ADDON_DEPENDENCIES += ofxPoco
+	# ofxTween uses POCO (Timestamp, Delegate) but has no addon_config.mk of its own
+	ADDON_DEPENDENCIES += ofxPocoHeaders
 	
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
